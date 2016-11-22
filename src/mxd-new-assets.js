@@ -22,50 +22,46 @@ module.exports = (RED) => {
 
       if (config['area-package'] && config['type-movies']) {
         node.log('include check for package movies');
-        requests.push(
-          heimdall.getAssets((new AssetsQuery())
-            .filter('new')
-            .filter('notUnlisted')
-            .filter('hasPackageContent')
-            .filter('movies')
-            .sort('activeLicenseStart', 'desc'))
-        );
+        const query = (new AssetsQuery())
+          .filter('new')
+          .filter('notUnlisted')
+          .filter('hasPackageContent')
+          .filter('movies')
+          .sort('activeLicenseStart', 'desc');
+        requests.push(heimdall.getAssets(query));
       }
 
       if (config['area-package'] && config['type-seasons']) {
         node.log('include check for package seasons');
-        requests.push(
-          heimdall.getAssets((new AssetsQuery())
-            .filter('new')
-            .filter('notUnlisted')
-            .filter('hasPackageContent')
-            .filter('seasons')
-            .sort('activeLicenseStart', 'desc'))
-        );
+        const query = (new AssetsQuery())
+          .filter('new')
+          .filter('notUnlisted')
+          .filter('hasPackageContent')
+          .filter('seasons')
+          .sort('activeLicenseStart', 'desc');
+        requests.push(heimdall.getAssets(query));
       }
 
       if (config['area-store'] && config['type-movies']) {
         node.log('include check for store movies');
-        requests.push(
-          heimdall.getAssets((new AssetsQuery())
-            .filter('new')
-            .filter('notUnlisted')
-            .filter('availableWithoutPackage')
-            .filter('movies')
-            .sort('activeLicenseStart', 'desc'))
-        );
+        const query = (new AssetsQuery())
+          .filter('new')
+          .filter('notUnlisted')
+          .filter('availableWithoutPackage')
+          .filter('movies')
+          .sort('activeLicenseStart', 'desc');
+        requests.push(heimdall.getAssets(query));
       }
 
       if (config['area-store'] && config['type-seasons']) {
         node.log('include check for store seasons');
-        requests.push(
-          heimdall.getAssets((new AssetsQuery())
-            .filter('new')
-            .filter('notUnlisted')
-            .filter('availableWithoutPackage')
-            .filter('seasons')
-            .sort('activeLicenseStart', 'desc'))
-        );
+        const query = (new AssetsQuery())
+          .filter('new')
+          .filter('notUnlisted')
+          .filter('availableWithoutPackage')
+          .filter('seasons')
+          .sort('activeLicenseStart', 'desc');
+        requests.push(heimdall.getAssets(query));
       }
 
       if (requests.length === 0) {
