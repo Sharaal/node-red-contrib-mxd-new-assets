@@ -1,0 +1,56 @@
+<script type="text/javascript">
+  RED.nodes.registerType('mxd-new-assets', {
+    category: 'input',
+    color: '#00a3ad',
+    defaults: {
+      interval: { value: 10 },
+      apikey: { value: '', required: true },
+      appid: { value: '', required: true },
+      'area-package': { value: true },
+      'area-store': { value: true },
+      'type-movies': { value: true },
+      'type-seasons': { value: true }
+    },
+    icon: 'play',
+    label: 'mxd-new-assets',
+    outputs: 1
+  });
+</script>
+
+<script type="text/x-red" data-template-name="mxd-new-assets">
+  <div class="form-row">
+    <label for="node-input-interval">Interval (in seconds)</label>
+    <input type="number" id="node-input-interval" />
+  </div>
+  <legend>Heimdall</legend>
+  <div class="form-row">
+    <label for="node-input-apikey">API Key</label>
+    <input type="text" id="node-input-apikey" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-appid">APP ID</label>
+    <input type="text" id="node-input-appid" />
+  </div>
+  <legend>Area</legend>
+  <div class="form-row">
+    <label for="node-input-area-package">Package</label>
+    <input type="checkbox" id="node-input-area-package" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-area-store">Store</label>
+    <input type="checkbox" id="node-input-area-store" />
+  </div>
+  <legend>Type</legend>
+  <div class="form-row">
+    <label for="node-input-type-movies">Movies</label>
+    <input type="checkbox" id="node-input-type-movies" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-type-seasons">Seasons</label>
+    <input type="checkbox" id="node-input-type-seasons" />
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="mxd-new-assets">
+  <p></p>
+</script>
