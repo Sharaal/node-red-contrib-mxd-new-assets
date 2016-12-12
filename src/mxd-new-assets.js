@@ -69,14 +69,18 @@ module.exports = (RED) => {
         firstRun = true;
       }
       const currentRunAssets = new Set();
+      const newAssets = new Set();
       assets.forEach((asset) => {
         if (!firstRun && !lastRunAssets.has(asset.id)) {
-          node.log(`send new asset (id: ${asset.id})`);
-          node.send({ payload: asset });
+          node.log(`new asset (id: ${asset.id})`);
+          newAssets.add(asset);
         }
         currentRunAssets.add(asset.id);
       });
       lastRunAssets = currentRunAssets;
+
+      node.log('send new assets');
+      node.send({ payload: newAssets.values() });
 
       node.log('end check for new assets');
       timeoutHandle = setTimeout(RUN, config.interval * 1000);
