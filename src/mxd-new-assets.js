@@ -79,8 +79,10 @@ module.exports = (RED) => {
       });
       lastRunAssets = currentRunAssets;
 
-      node.log('send new assets');
-      node.send({ payload: newAssets.values() });
+      if (newAssets.size > 0) {
+        node.log(`send ${newAssets.size} new assets`);
+        node.send({ payload: newAssets.values() });
+      }
 
       node.log('end check for new assets');
       timeoutHandle = setTimeout(RUN, config.interval * 1000);
