@@ -81,7 +81,7 @@ module.exports = (RED) => {
 
       if (newAssets.size > 0) {
         node.log(`send ${newAssets.size} new assets`);
-        node.send({ payload: newAssets.values() });
+        node.send({ payload: Array.from(newAssets) });
       }
 
       node.log('end check for new assets');
