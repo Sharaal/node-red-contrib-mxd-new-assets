@@ -1,16 +1,14 @@
-const { AssetsQuery, Heimdall } = require('mxd-heimdall');
-
 module.exports = (RED) => {
   RED.nodes.registerType('mxd-new-assets', function NODE(config) {
     RED.nodes.createNode(this, config);
     const node = this;
 
-    if (!config.apikey || !config.appid || !config.interval) {
+    if (!config.interval) {
       node.error('config is missing');
     }
     node.log(`initialize mxd-new-assets node with an interval of ${config.interval} seconds`);
 
-    const heimdall = new Heimdall({ apikey: config.apikey, appid: config.appid });
+    const { AssetsQuery, heimdall } = RED.nodes.getNode(config.heimdall);
 
     let lastRunAssets = new Set();
     let timeoutHandle;

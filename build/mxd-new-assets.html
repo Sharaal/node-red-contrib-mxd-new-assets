@@ -6,9 +6,7 @@
       interval: { value: 1200, required: true },
       area: { value: 'all', required: true },
       content: { value: 'all', required: true },
-      url: { value: 'https://heimdall.maxdome.de/', required: true },
-      apikey: { value: '', required: true },
-      appid: { value: '', required: true }
+      heimdall: { value: '', required: true, type: 'mxd-heimdall' }
     },
     icon: 'arrow-in.png',
     label: 'mxd-new-assets',
@@ -37,18 +35,9 @@
       <option value="seasons">Only Seasons</option>
     </select>
   </div>
-  <legend>Heimdall</legend>
   <div class="form-row">
-    <label for="node-input-url">URL</label>
-    <input type="text" id="node-input-url" />
-  </div>
-  <div class="form-row">
-    <label for="node-input-apikey">API Key</label>
-    <input type="text" id="node-input-apikey" />
-  </div>
-  <div class="form-row">
-    <label for="node-input-appid">APP ID</label>
-    <input type="text" id="node-input-appid" />
+    <label for="node-input-heimdall">Heimdall</label>
+    <input type="text" id="node-input-heimdall" />
   </div>
 </script>
 
