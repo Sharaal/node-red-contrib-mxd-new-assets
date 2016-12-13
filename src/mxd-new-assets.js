@@ -2,8 +2,10 @@ module.exports = (RED) => {
   RED.nodes.registerType('mxd-new-assets', function NODE(config) {
     RED.nodes.createNode(this, config);
     const node = this;
+    node.status({});
 
     if (!config.interval) {
+      node.status({ fill: 'red', shape: 'dot', text: 'config is missing' });
       node.error('config is missing');
     }
     node.log(`initialize mxd-new-assets node with an interval of ${config.interval} seconds`);
@@ -52,13 +54,14 @@ module.exports = (RED) => {
       try {
         responses = await Promise.all(requests);
       } catch (e) {
-        node.status({ fill: 'red', shape: 'dot', text: 'requesting error' });
+        node.status({ fill: 'yellow', shape: 'dot', text: 'requesting error' });
         node.warn(`requesting error, skip this run (${e.message})`);
         return;
       }
 
       const assets = responses.reduce((a, b) => a.concat(b));
       if (assets.length === 0) {
+        node.status({ fill: 'yellow', shape: 'dot', text: 'no assets in the responses' });
         node.warn('no assets in the responses');
         return;
       }
