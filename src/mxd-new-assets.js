@@ -14,6 +14,7 @@ module.exports = (RED) => {
     let timeoutHandle;
 
     async function RUN() {
+      node.status({ fill: 'grey', shape: 'dot', text: `check for new assets...` });
       node.log('start check for new assets');
 
       const queries = [];
@@ -51,6 +52,7 @@ module.exports = (RED) => {
       try {
         responses = await Promise.all(requests);
       } catch (e) {
+        node.status({ fill: 'red', shape: 'dot', text: 'requesting error' });
         node.warn(`requesting error, skip this run (${e.message})`);
         return;
       }
@@ -77,6 +79,7 @@ module.exports = (RED) => {
       });
       lastRunAssets = currentRunAssets;
 
+      node.status({ fill: 'green', shape: 'dot', text: `sent ${newAssets.size} new assets` });
       if (newAssets.size > 0) {
         node.log(`send ${newAssets.size} new assets`);
         node.send({ payload: Array.from(newAssets) });
