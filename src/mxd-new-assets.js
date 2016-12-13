@@ -13,6 +13,7 @@ module.exports = (RED) => {
 
     const { AssetsQuery, heimdall } = RED.nodes.getNode(config.heimdall);
     if (!AssetsQuery || !heimdall) {
+      node.status({ fill: 'red', shape: 'dot', text: 'heimdall is missing' });
       node.error('heimdall is missing');
       return;
     }
