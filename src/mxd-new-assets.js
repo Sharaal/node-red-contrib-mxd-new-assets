@@ -22,7 +22,7 @@ module.exports = (RED) => {
     let timeoutHandle;
 
     async function RUN() {
-      node.status({ fill: 'grey', shape: 'dot', text: `check for new assets...` });
+      node.status({ fill: 'grey', shape: 'dot', text: 'check for new assets...' });
       node.log('start check for new assets');
 
       const queries = [];
