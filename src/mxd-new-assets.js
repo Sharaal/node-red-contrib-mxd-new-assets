@@ -53,39 +53,36 @@ module.exports = (RED) => {
       let responses;
       try {
         responses = await Promise.all(requests);
+
+        const assets = responses.reduce((a, b) => a.concat(b));
+        if (assets.length === 0) {
+          throw new Error('no assets in the responses');
+        }
+
+        let firstRun = false;
+        if (!lastRunAssets.size) {
+          node.log('first run');
+          firstRun = true;
+        }
+        const currentRunAssets = new Set();
+        const newAssets = new Set();
+        assets.forEach((asset) => {
+          if (!firstRun && !lastRunAssets.has(asset.id)) {
+            node.log(`new asset (id: ${asset.id})`);
+            newAssets.add(asset);
+          }
+          currentRunAssets.add(asset.id);
+        });
+        lastRunAssets = currentRunAssets;
+
+        node.status({ fill: 'green', shape: 'dot', text: `sent ${newAssets.size} new assets` });
+        if (newAssets.size > 0) {
+          node.log(`send ${newAssets.size} new assets`);
+          node.send({ payload: Array.from(newAssets) });
+        }
       } catch (e) {
         node.status({ fill: 'yellow', shape: 'dot', text: 'requesting error' });
         node.warn(`requesting error, skip this run (${e.message})`);
-        return;
-      }
-
-      const assets = responses.reduce((a, b) => a.concat(b));
-      if (assets.length === 0) {
-        node.status({ fill: 'yellow', shape: 'dot', text: 'no assets in the responses' });
-        node.warn('no assets in the responses');
-        return;
-      }
-
-      let firstRun = false;
-      if (!lastRunAssets.size) {
-        node.log('first run');
-        firstRun = true;
-      }
-      const currentRunAssets = new Set();
-      const newAssets = new Set();
-      assets.forEach((asset) => {
-        if (!firstRun && !lastRunAssets.has(asset.id)) {
-          node.log(`new asset (id: ${asset.id})`);
-          newAssets.add(asset);
-        }
-        currentRunAssets.add(asset.id);
-      });
-      lastRunAssets = currentRunAssets;
-
-      node.status({ fill: 'green', shape: 'dot', text: `sent ${newAssets.size} new assets` });
-      if (newAssets.size > 0) {
-        node.log(`send ${newAssets.size} new assets`);
-        node.send({ payload: Array.from(newAssets) });
       }
 
       node.log('end check for new assets');
