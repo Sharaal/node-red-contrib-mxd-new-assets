@@ -7,6 +7,7 @@ module.exports = (RED) => {
     if (!config.interval) {
       node.status({ fill: 'red', shape: 'dot', text: 'config is missing' });
       node.error('config is missing');
+      return;
     }
     node.log(`initialize mxd-new-assets node with an interval of ${config.interval} seconds`);
 
