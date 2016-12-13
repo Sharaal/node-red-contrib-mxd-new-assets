@@ -56,9 +56,8 @@ module.exports = (RED) => {
           .sort('activeLicenseStart', 'desc');
         return heimdall.getAssets(query);
       });
-      let responses;
       try {
-        responses = await Promise.all(requests);
+        const responses = await Promise.all(requests);
 
         const assets = responses.reduce((a, b) => a.concat(b));
         if (assets.length === 0) {
