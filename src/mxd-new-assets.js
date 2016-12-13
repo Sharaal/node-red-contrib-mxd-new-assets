@@ -12,6 +12,10 @@ module.exports = (RED) => {
     node.log(`initialize mxd-new-assets node with an interval of ${config.interval} seconds`);
 
     const { AssetsQuery, heimdall } = RED.nodes.getNode(config.heimdall);
+    if (!AssetsQuery || !heimdall) {
+      node.error('heimdall is missing');
+      return;
+    }
 
     let lastRunAssets = new Set();
     let timeoutHandle;
