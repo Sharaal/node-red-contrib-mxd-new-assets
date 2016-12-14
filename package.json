@@ -20,7 +20,9 @@
     "lint": "eslint src",
     "prepublish": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "node-red-contrib-dnode": "^1.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
